@@ -48,8 +48,13 @@ class PlanarProblem(object):
 
         # Check that x and y are within the extents of the map.
         # BEGIN QUESTION 1.2
-        "*** REPLACE THIS LINE ***"
-        raise NotImplementedError
+
+        # state is valid if x is within the x extents and y is within the y extents
+        valid = np.logical_and(
+            np.logical_and(x >= self.extents[0, 0], x < self.extents[0, 1]),
+            np.logical_and(y >= self.extents[1, 0], y < self.extents[1, 1]),
+        )
+
         # END QUESTION 1.2
 
         # The units of the state are meters and radians. We need to convert the
@@ -67,8 +72,12 @@ class PlanarProblem(object):
         # integers. Then, index into self.permissible_region, remembering that
         # the zeroth dimension is the height.
         # BEGIN QUESTION 1.2
-        "*** REPLACE THIS LINE ***"
-        raise NotImplementedError
+
+        x = states[:, 0].astype(int)
+        y = states[:, 1].astype(int)
+        index = np.nonzero(valid)[0]  # positions of states that passed the extents check
+        valid[index] = self.permissible_region[y[index], x[index]]  # row = y, col = x
+        
         # END QUESTION 1.2
 
         # Convert the units back from pixels to meters for the caller

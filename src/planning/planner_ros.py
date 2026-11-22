@@ -216,7 +216,7 @@ class PlannerROS:
         h = Header()
         h.stamp = rospy.Time.now()
         h.frame_id = "map"
-        desired_speed = 1.0
+        desired_speed = 1
 
         path = Path()
         path.header = h

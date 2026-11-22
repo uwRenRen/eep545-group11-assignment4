@@ -88,8 +88,13 @@ class Roadmap(object):
         """
         # Hint: call the check_edge_validity method from above.
         # BEGIN QUESTION 1.3
-        "*** REPLACE THIS LINE ***"
-        raise NotImplementedError
+        
+        keep = np.zeros(len(weighted_edges), dtype=bool)
+        for k in range(len(weighted_edges)):
+            u, v, _ = weighted_edges[k]                         # node labels and length for row k 
+            keep[k] = self.check_edge_validity(int(u), int(v))  # labels are floats in the array, so cast to int
+        weighted_edges = weighted_edges[keep, :]                # keep only the rows that are valid
+        
         # END QUESTION 1.3
         return weighted_edges
 

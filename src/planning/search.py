@@ -57,9 +57,15 @@ def astar(rm, start, goal):
             # Collision check the edge between the parent and this node (if a
             # parent exists). If it's in collision, stop processing this entry;
             # we'll wait for another possible parent later in the queue.
+
             # BEGIN QUESTION 2.2
-            "*** REPLACE THIS LINE ***"
-            raise NotImplementedError
+
+            if entry.parent != NULL:
+                if not rm.check_edge_validity(entry.parent, entry.node):
+                    continue
+
+
+
             # END QUESTION 2.2
 
         expanded[entry.node] = True
@@ -85,10 +91,18 @@ def astar(rm, start, goal):
             #
             # However, if the neighbor has already been expanded, it's no longer
             # necessary to insert this QueueEntry.
+
             # BEGIN QUESTION 2.1
-            "*** REPLACE THIS LINE ***"
-            raise NotImplementedError
+
+            if expanded[neighbor]: # skip if neighbor has already been expanded
+                continue
+
+            new_cost = entry.cost_to_come + weight # compute cost-to-come via entry.node
+            f = new_cost + h # compute f-value for this neighbor
+            queue.push(QueueEntry(f, next(c), neighbor, entry.node, new_cost)) 
+
             # END QUESTION 2.1
+
     raise nx.NetworkXNoPath("Node {} not reachable from {}".format(goal, start))
 
 
@@ -103,9 +117,18 @@ def extract_path(parents, goal):
         vpath: a sequence of node labels from the start to the goal
     """
     # Follow the parents of the node until a NULL entry is reached
+
     # BEGIN QUESTION 2.1
-    "*** REPLACE THIS LINE ***"
-    raise NotImplementedError
+
+    vpath = [] 
+    node = goal 
+    while node != NULL: # follows parents to the start node
+        vpath.append(node) 
+        node = int(parents[node]) 
+
+    vpath.reverse() # reverse the path to get it from start to goal
+    return vpath
+    
     # END QUESTION 2.1
 
 
@@ -132,10 +155,13 @@ def shortcut(rm, vpath, num_trials=100):
         # heuristic, and compute_path_length.
         indices = np.random.choice(len(vpath), size=2, replace=False)
         i, j = np.sort(indices)
+
         # BEGIN QUESTION 2.3
-        "*** REPLACE THIS LINE ***"
-        raise NotImplementedError
+
+        u, v = vpath[i], vpath[j]
+        current_len = rm.compute_path_length(vpath[i:j + 1])
+        if rm.heuristic(u, v) < current_len and rm.check_edge_validity(u, v):
+            vpath = vpath[:i + 1] + vpath[j:]
+
         # END QUESTION 2.3
     return vpath
-
-

@@ -1,0 +1,10 @@
+Q9 parameter:
+
+roslaunch planning planner_sim.launch map:='$(find ee545)/maps/small_basement.yaml' num_vertices:=3000 connection_radius:=12 curvature:=0.8 initial_x:=30 initial_y:=18
+
+MPC parameters: control/config/parameters.yaml
+K: 41
+T: 20
+
+desired speed: planning/src/planning/planner_ros.py(row 219)
+desired_speed = 1

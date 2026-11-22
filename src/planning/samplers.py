@@ -58,8 +58,16 @@ class HaltonSampler(Sampler):
         index += 1
 
         # BEGIN QUESTION 1.1
-        "*** REPLACE THIS LINE ***"
-        raise NotImplementedError
+        
+        result = 0
+        fraction = 1
+        while index > 0:
+            fraction /= base
+            result += fraction * (index % base)
+            index //= base # floor division to get the next digit
+
+        return result
+        
         # END QUESTION 1.1
 
     def make_base_generator(self, base):
@@ -90,8 +98,11 @@ class HaltonSampler(Sampler):
 
         # Scale the batch of samples to fit the extents of the space.
         # BEGIN QUESTION 1.1
-        "*** REPLACE THIS LINE ***"
-        raise NotImplementedError
+        
+        # scaled samples = lower + batch * (upper - lower)
+        scaled_samples = self.extents[:, 0] + batch * (self.extents[:, 1] - self.extents[:, 0])
+        return scaled_samples
+        
         # END QUESTION 1.1
 
 

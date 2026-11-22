@@ -1,0 +1,10 @@
+Q8 parameter:
+
+roslaunch planning planner_sim.launch map:='$(find ee545)/maps/maze_0.yaml' num_vertices:=1000 connection_radius:=10 curvature:=1 controller:=mpc
+
+MPC parameters: control/config/parameters.yaml
+K: 41
+T: 30
+
+desired speed: planning/src/planning/planner_ros.py(row 219)
+desired_speed = 1
